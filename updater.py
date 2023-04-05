@@ -17,6 +17,7 @@ def checkUpdate():
             versionData = fileName.split('-')[1]
             if versionData[:-4] != versions[appName]:
                 pullUpdate(f"{appName}-{versions[appName]}.exe")
+                os.system("{appName}-{versions[appName]}.exe")
                 return True
 
 def pullUpdate(fileName):
@@ -28,6 +29,10 @@ def pullUpdate(fileName):
 def checkPurge():
     versions = requests.get(VERSION_LINK).json()
     validFiles = [name for name in versions]
+    curFile = sys.argv[0].split('\\')[-1].replace('.exe','').split('-')
+
+    if versions[curFile[0]] != curFile[1]:
+        return
 
     for fileName in os.listdir(os.path.dirname(sys.executable)):
         appName = fileName.split('-')[0]
@@ -35,4 +40,5 @@ def checkPurge():
             versionData = fileName.split('-')[1]
             if versionData[:-4] != versions[appName]:
                 os.remove(fileName)
-                return False
+                os.system(f'{appName}-{versions[appName]}.exe')
+                return True
