@@ -17,7 +17,7 @@ def checkUpdate():
             versionData = fileName.split('-')[1]
             if versionData[:-4] != versions[appName]:
                 pullUpdate(f"{appName}-{versions[appName]}.exe")
-                break
+                return True
 
 def pullUpdate(fileName):
     fileData = requests.get(REPO_LINK.format(fileName))
@@ -35,4 +35,4 @@ def checkPurge():
             versionData = fileName.split('-')[1]
             if versionData[:-4] != versions[appName]:
                 os.remove(fileName)
-                break
+                return False
