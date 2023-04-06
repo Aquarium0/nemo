@@ -39,7 +39,7 @@ def checkPurge():
 
     for fileName in os.listdir(os.path.dirname(sys.executable)):
         appName = fileName.split('-')[0]
-        if appName in validFiles and 'exe' in fileName:
+        if appName in validFiles and 'exe' in fileName and appName == curFile[0]:
             versionData = fileName.split('-')[1]
             if versionData[:-4] != versions[appName]:
                 os.remove(fileName)
