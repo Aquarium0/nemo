@@ -44,3 +44,11 @@ def checkPurge():
             if versionData[:-4] != versions[appName]:
                 os.remove(fileName)
                 return True
+
+
+def updateConfirm():
+    if getattr(sys, 'frozen', False):
+        checkPurge()
+
+        if checkUpdate():
+            sys.exit()
