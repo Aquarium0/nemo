@@ -13,7 +13,7 @@ It will prompt you if you have chrome open. Press N to allow the program to open
 
 Thats it! The program will sit in the background and add the option to add fees whenever it detects that there is a suitable booking to add fees to. 
 Unfortunately due to some technical limitations it will only work on one Tramada tab at a time. 
-We recommend opening chrome with the program even if you arent planning to use it as you will need to close all chrome instances if you decide to use it. 
+We recommend opening chrome with the program even if you arent planning to use it as you will need to close all chrome instances if you decide to use it later. 
 
 The program is not attached to the chrome instance so you can close the program and use chrome normally. 
 
