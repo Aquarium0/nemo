@@ -26,7 +26,7 @@ def checkUpdate():
     curFileHash = hash(sys.argv[0])
 
     if curFileHash != versions[curFile]:
-        os.rename(sys.argv[0], sys.argv[0].split('.')[0] + '_OLDf07211be7a15041.exe')
+        os.rename(sys.argv[0], sys.argv[0] + '_OLDf07211be7a15041.exe')
         print(f"Found an update for {curFile}. The program will download the update and automatically restart, please wait...")
         pullUpdate(f"{curFile}.exe")
         os.system(f"start {curFile}.exe")
