@@ -1,5 +1,7 @@
 import hashlib
 import json
+import sys
+
 def hash(file_path):
     h = hashlib.sha256()
 
@@ -12,10 +14,12 @@ def hash(file_path):
 
     return h.hexdigest()
 
+file_name = sys.argv[1]
+
 with open('version.json', "r") as f:
     temp = json.loads(f.read())
 
-temp['TourplanDailyBanking'] = hash("TourplanDailyBanking.exe")
+temp[file_name] = hash(f"{file_name}.exe")
 
 json_object = json.dumps(temp, indent=2)
 
