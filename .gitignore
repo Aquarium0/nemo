@@ -1,0 +1,7 @@
+# Custom Files
+*
+!*.exe
+!*.py
+!*.ico
+!*.md
+!version.json
