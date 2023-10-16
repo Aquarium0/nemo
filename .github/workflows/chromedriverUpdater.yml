@@ -1,0 +1,15 @@
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  schedule_chromedriver:
+    runs-on: windows-latest
+
+    steps:
+      - name: fetch
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: python actionUpdater.py chromedriver
