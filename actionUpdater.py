@@ -3,6 +3,7 @@ import json
 import sys
 import zipfile
 import io
+import shutil
 import requests
 
 generic_source = "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{}/win64/chromedriver-win64.zip"
@@ -32,7 +33,9 @@ if file_name == "chromedriver":
 
     zip_req = requests.get(target_source)
     zip = zipfile.ZipFile(io.BytesIO(zip_req.content))
-    zip.extract("chromedriver-win64/chromedriver.exe", 'chromedriver.exe')
+    zip.extract("chromedriver-win64/chromedriver.exe")
+    shutil.move("chromedriver-win64/chromedriver.exe", "chromedriver.exe")
+    shutil.rmtree("chromedriver-win64")
 else:
     with open('version.json', "r") as f:
         temp = json.loads(f.read())
