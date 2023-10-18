@@ -11,28 +11,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
       - run: pip install requests
-      - name: Make temp directory for nemo
-        run: |
-          mkdir temp
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.ACTIONS_GITHUB_TOKEN }}
-          repository: Aquarium0/nemo
-          fetch-depth: 1
-          persist-credentials: true
-          submodules: false
-          path: temp/
       - run: |
           python actionUpdater.py chromedriver
       - name: Upload to nemo
-        run: | 
-          Remove-Item temp\chromedriver.exe
-          Move-Item chromedriver.exe temp\chromedriver.exe
-          cd temp
+        run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "test@travelctm.com"
           git status
