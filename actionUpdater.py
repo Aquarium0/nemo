@@ -32,7 +32,7 @@ if file_name == "chromedriver":
 
     zip_req = requests.get(target_source)
     zip = zipfile.ZipFile(io.BytesIO(zip_req.content))
-    zip.extract("chromedriver-win64/chromedriver.exe")
+    zip.extract("chromedriver-win64/chromedriver.exe", 'chromedriver.exe')
 else:
     with open('version.json', "r") as f:
         temp = json.loads(f.read())
