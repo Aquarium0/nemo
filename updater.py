@@ -29,7 +29,7 @@ def checkUpdate():
         os.rename(sys.argv[0], sys.argv[0] + '_OLDf07211be7a15041.exe')
         print(f"Found an update for {curFile}. The program will download the update and automatically restart, please wait...")
         pullUpdate(f"{curFile}.exe")
-        additional = f" {' '.join(sys.argv[1:])}" if len(sys.argv > 1) else ""
+        additional = f" {' '.join(sys.argv[1:])}" if len(sys.argv) > 1 else ""
         os.system(f"start {curFile}.exe{additional}")
         sleep(0.2)
         return True
