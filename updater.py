@@ -22,7 +22,7 @@ def hash(file_path):
 def checkUpdate():
     print("Checking for updates...")
     versions = requests.get(VERSION_LINK).json()
-    curFile = sys.argv[0].split('\\')[-1].replace('.exe','')
+    curFile = sys.argv[0].split('\\')[-1].replace('.exe','').split(' ')[0]
     curFileHash = hash(sys.argv[0])
 
     if curFileHash != versions[curFile]:
