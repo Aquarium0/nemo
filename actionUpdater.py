@@ -6,9 +6,10 @@ import io
 import shutil
 import requests
 
-generic_source = "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{}/win64/chromedriver-win64.zip"
+GENERIC_SOURCE = "https://storage.googleapis.com/chrome-for-testing-public/{}/win64/chromedriver-win64.zip"
 
-def hash(file_path):
+def file_hash(file_path):
+    """Returns the hash of a file."""
     h = hashlib.sha256()
 
     with open(file_path, 'rb') as file:
@@ -23,26 +24,29 @@ def hash(file_path):
 file_name = sys.argv[1]
 
 if file_name == "chromedriver":
-    version_req = requests.get('https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE', timeout=60)
+    version_req = requests.get(
+        'https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE',
+        timeout=60
+    )
     if version_req.status_code != 200:
         print("An error occurred in requesting the latest stable version, exiting early...")
-        exit()
-    
-    version = version_req.text
-    target_source = generic_source.format(version)
+        sys.exit()
 
-    zip_req = requests.get(target_source)
-    zip = zipfile.ZipFile(io.BytesIO(zip_req.content))
-    zip.extract("chromedriver-win64/chromedriver.exe")
+    version = version_req.text
+    target_source = GENERIC_SOURCE.format(version)
+
+    zip_req = requests.get(target_source, timeout=60)
+    zip_file = zipfile.ZipFile(io.BytesIO(zip_req.content))
+    zip_file.extract("chromedriver-win64/chromedriver.exe")
     shutil.move("chromedriver-win64/chromedriver.exe", "chromedriver.exe")
     shutil.rmtree("chromedriver-win64")
 else:
-    with open('version.json', "r") as f:
+    with open('version.json', "r", encoding="") as f:
         temp = json.loads(f.read())
 
-    temp[file_name] = hash(f"{file_name}.exe")
+    temp[file_name] = file_hash(f"{file_name}.exe")
 
     json_object = json.dumps(temp, indent=2)
 
-    with open("version.json", "w") as outfile:
+    with open("version.json", "w", encoding="") as outfile:
         outfile.write(json_object)
