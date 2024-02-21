@@ -41,12 +41,12 @@ if file_name == "chromedriver":
     shutil.move("chromedriver-win64/chromedriver.exe", "chromedriver.exe")
     shutil.rmtree("chromedriver-win64")
 else:
-    with open('version.json', "r", encoding="") as f:
+    with open('version.json', "r", encoding="locale") as f:
         temp = json.loads(f.read())
 
     temp[file_name] = file_hash(f"{file_name}.exe")
 
     json_object = json.dumps(temp, indent=2)
 
-    with open("version.json", "w", encoding="") as outfile:
+    with open("version.json", "w", encoding="locale") as outfile:
         outfile.write(json_object)
