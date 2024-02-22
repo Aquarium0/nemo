@@ -40,6 +40,17 @@ if file_name == "chromedriver":
     zip_file.extract("chromedriver-win64/chromedriver.exe")
     shutil.move("chromedriver-win64/chromedriver.exe", "chromedriver.exe")
     shutil.rmtree("chromedriver-win64")
+
+    with open('version.json', "r", encoding="locale") as f:
+        temp = json.loads(f.read())
+
+    temp['chromedriver'] = version
+
+    json_object = json.dumps(temp, indent=2)
+
+    with open("version.json", "w", encoding="locale") as outfile:
+        outfile.write(json_object)
+
 else:
     with open('version.json', "r", encoding="locale") as f:
         temp = json.loads(f.read())
